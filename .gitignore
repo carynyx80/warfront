@@ -1,6 +1,7 @@
 node_modules/
 .env
 *.tar.gz
+.openai/local*
 .openai/
 .vercel/
 dist/vendor/

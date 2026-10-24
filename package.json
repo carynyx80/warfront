@@ -1,0 +1,20 @@
+{
+  "name": "warfront",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node services/game-server/server.js",
+    "start": "node services/game-server/server.js",
+    "test": "node scripts/verify.js",
+    "build": "node scripts/build.js"
+  },
+  "dependencies": {
+    "playcanvas": "2.18.1",
+    "ws": "8.18.3"
+  },
+  "engines": {
+    "node": "24.x"
+  },
+  "packageManager": "pnpm@10.28.0"
+}
