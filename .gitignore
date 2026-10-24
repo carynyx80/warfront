@@ -1,0 +1,8 @@
+node_modules/
+.env
+*.tar.gz
+.openai/
+.vercel/
+dist/vendor/
+dist/config.js
+dist/build-report.json
