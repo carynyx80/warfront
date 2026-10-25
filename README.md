@@ -1,38 +1,38 @@
-# WARFRONT — playable combat prototype
+# WARFRONT — London Operations
 
-A real PlayCanvas 3D browser client and separate Node/WebSocket authoritative Team Deathmatch server. This is an early functional prototype, **not the complete alpha described in the master brief**.
-
-## Deploy to Vercel
-
-Import [carynyx80/warfront](https://github.com/carynyx80/warfront) with repository root `./` and preset **Other**. `vercel.json` supplies install/build/output settings. Set the public build variable `WARFRONT_SERVER_URL` to your separately hosted `wss://` game server. See [DEPLOYMENT.md](DEPLOYMENT.md) for exact steps. Vercel serves the client; live combat requires that external server.
+A playable PlayCanvas browser shooter set in an original Southwark-inspired London district. Includes local training, free roam, and a separate authoritative Node/WebSocket multiplayer server. This is an indie prototype, not a GTA-scale open world or Call of Duty-quality production.
 
 ## Run
 
-Node.js 24 and pnpm are required.
+Use Node.js 24 and pnpm 10.28.0:
 
 ```sh
 corepack enable
-pnpm install --ignore-scripts
+pnpm install --frozen-lockfile --ignore-scripts
 pnpm build
 pnpm dev
 ```
 
-Open http://localhost:3000/dev for live telemetry and game, /lobby to select callsign and weapon, or /play for the game. Open a second browser window to fight another human. No training bots or artificial players are included. The in-app browser may reject pointer lock; click then drag to aim there. Chrome/Edge desktop pointer lock is preferred.
+Open http://localhost:3000. Choose training against three clearly labeled AI bots, free roam, or online multiplayer. The armory offers seven weapons and four cosmetic operator classes. Local training pauses until you deploy and when you press Escape or leave the window.
 
-WASD move, Shift sprint, C crouch, Space jump, mouse aim, left click fire, right click aim, R reload, V FPS/TPS, Tab scoreboard, Esc release. Clicking the scene enters controls. Guest name and loadout are stored in your browser only.
+WASD move, Shift sprint, C crouch, Space jump, mouse aim, left click fire, right click aim, R reload, V first/third person, 1 primary, 2 pistol, G grenade, Tab scoreboard, Esc release/pause local play. Embedded browsers may reject pointer lock; drag to aim is supported. Keyboard and mouse are required; mobile touch controls are not implemented.
+
+## Deploy to Vercel
+
+Import [carynyx80/warfront](https://github.com/carynyx80/warfront), repository root `./`, preset **Other**. The checked-in `vercel.json` supplies install/build/output settings. Training and free roam work on the static deployment. Online multiplayer requires a separately hosted persistent server and the public build variable `WARFRONT_SERVER_URL=wss://your-server.example`. See [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Included
 
-Procedural original urban map and soldiers, directional limb animation, collision against cover, gravity/jump, FPS rifle and over-shoulder camera, five configurable firearms, ammunition/reload/fire-rate validation, server hitscan and obstruction tests, team balance up to ten players, 30 Hz target simulation, 50-kill/10-minute TDM, five-second respawn, results, automatic next round, real connected-player scoreboard, movement prediction/replay and remote smoothing, telemetry, and CI/container/Vercel preparation.
+- London-inspired streets, textured facades, shopfronts, road markings, Thames-inspired skyline and decorative vehicles.
+- Locally bundled, textured and rigged CC0 soldier with walk/run animation, arm posing and cosmetic gear. Optimized to 42,000 triangles; four classes share this base model.
+- Seven original modeled weapons: M4A1, AK74, MP5, M24, M9, SCAR-L and M249, with distinct combat statistics, inspection and persistent browser loadout.
+- FPS/TPS cameras, collision, jumping, sprint/crouch, shooting/reload, hit feedback, grenades, death/respawn, minimap and scoreboard.
+- Online server validation, movement prediction, remote smoothing, 50-kill/10-minute TDM and automatic next rounds.
 
-## Important limits
+## Scope and source
 
-One in-memory room, no accounts or durable statistics, no reconnect recovery or lag compensation, no skeletal GLB assets, no capsule physics or vertical map traversal, no class abilities, no wallet or contracts. No production security certification or 5v5 load test. See IMPLEMENTATION_STATUS.md and TESTING.md for exact verification. Host the game server separately before claiming public online play.
+`dist/` contains client source and assets; `packages/shared/` holds shared movement and weapon data; `services/game-server/` runs multiplayer; `tests/` covers simulation, real WebSocket integration, practice and deployment packaging. Run `pnpm test` for verification. The build generates the engine bundle and public endpoint config.
 
-## Source layout
+One in-memory multiplayer room, no accounts, persistence, reconnect recovery, lag compensation or class abilities. No drivable vehicles, interiors, campaign or streamed open world. Advanced visual polish, mobile controls, load testing and production infrastructure remain future work. See [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).
 
-`dist/` client source and static assets; `services/game-server/` authoritative simulation host; `packages/shared/` map and movement/weapon data; `tests/` unit and real WebSocket integration tests; `infrastructure/` container config. Static client is deliberately build-light. The requested Next.js/React/Colyseus/PostgreSQL stack remains a future migration, not a claimed implementation.
-
-PlayCanvas is MIT licensed. Procedural geometry and synthesized audio are original; no third-party military assets are bundled. Fonts use Google Fonts and fall back to system fonts offline.
-
-Combat extension: G throws a server-simulated frag grenade (2 per life, 2.2-second fuse, 8m radius, cover occlusion, radial damage). 1/2 switches primary and pistol while preserving magazine state. Hitscan head intersections use a 1.8× multiplier. Muzzle and explosion meshes are short-lived placeholder effects.
+PlayCanvas is MIT licensed. The operator license, source and modifications are documented in [docs/ASSETS.md](docs/ASSETS.md). City/weapon geometry and synthesized audio are original. Fonts fall back to system fonts offline. No GTA or Call of Duty assets are included.

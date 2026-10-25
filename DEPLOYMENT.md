@@ -6,7 +6,7 @@
 2. Use repository root (`./`) and Framework Preset **Other**. Node.js **24.x** is declared in package.json.
 3. Keep the settings from vercel.json: install `npx --yes pnpm@10.28.0 install --frozen-lockfile --ignore-scripts`, build `node scripts/build.js`, output `dist`.
 4. Optionally set `WARFRONT_SERVER_URL=wss://your-game-server.example` before deploying. This is a public client configuration value; do not put secrets in it. The build rejects insecure ws:// endpoints on Vercel, credentials, query parameters, and fragments. If omitted, the lobby accepts a manually entered server URL; online combat remains unavailable until a server is configured.
-5. Deploy. Test `/`, `/lobby`, `/loadout`, `/play`, and direct refreshes. JavaScript, JSON, and engine assets are served as files. Unknown paths return 404. `/dev` redirects home in Vercel production/preview deployments, so the local development dashboard is not exposed there.
+5. Deploy. Local training and free roam run without an external server. Test `/`, `/lobby`, `/loadout`, `/play`, and direct refreshes. JavaScript, JSON, and engine assets are served as files. Unknown paths return 404. `/dev` redirects home in Vercel production/preview deployments, so the local development dashboard is not exposed there.
 
 The repository does not need a checked-in engine bundle: `pnpm build` copies PlayCanvas and its license from the pinned dependency. No Site credentials or generated .openai identity are uploaded. Native canvas scripts are disabled because only the browser engine is used.
 
